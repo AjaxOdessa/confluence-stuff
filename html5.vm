@@ -1,3 +1,12 @@
+#### Macro title: HTML5 Video
+## Macro has a body: N
+##
+## Output: HTML
+##
+## Originally developed by: David Simpson <david@davidsimpson.me>
+## Improved by: Yevgen Lasman <e.lasman@gmail.com>
+## Date created: 20/10/2015
+##
 ## @param width:title=Width|type=string|required=false|desc=Video width
 ## @param height:title=Height|type=string|required=false|desc=Video height
 ## @param poster:title=Poster|type=string|required=false|desc=Set a placeholder image
