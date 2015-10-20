@@ -32,28 +32,20 @@
 	#if ($paramautoplay) autoplay #end
 	#if ($paramwidth)  width="$paramwidth"   #end
 	#if ($paramheight) height="$paramheight" #end
-	#if ($paramposter) poster="$paramposter" #end ## Set a placeholder image for the video
+	#if ($paramposter) poster="$paramposter" #end
 	>
 	<source type="video/$attachment.getFileExtension()" src="$attachment.getDownloadPath()" />
-	<object type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf"
+	<object type="application/x-shockwave-flash" data="https://releases.flowplayer.org/swf/flowplayer-3.2.18.swf"
 		#if ($paramwidth)  width="$paramwidth"   #else width="640"  #end
 		#if ($paramheight) height="$paramheight" #else height="360" #end
 		>
-		<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
+		<param name="movie" value="https://releases.flowplayer.org/swf/flowplayer-3.2.18.swf" />
 		<param name="allowFullScreen" value="true" />
 		<param name="wmode" value="transparent" />
 		<param name="flashVars" value="config={'playlist':[{'url':'$generalUtil.urlEncode("$action.getGlobalSettings().getBaseUrl()${attachment.getDownloadPath()}")','autoPlay':false}]}" />
-		<span title="No video playback capabilities, please download the video below"></span>
+		<span title="No video playback capabilities, please download the video below."></span>
 	</object>
 </video>
 <p>
 	<strong>Download video:</strong> <a href="$attachment.getDownloadPath()">$attachment.getFileExtension() format</a>
 </p>
-
-<script>
-	## Remove the Firefox lameness and revert to the Flow Player embed
-	if (jQuery.browser.mozilla) jQuery('source[type="video/mp4"]').unwrap();
-</script>
-
-## Big props to: http://sandbox.thewikies.com/vfe-generator/ 
-## In response to: https://answers.atlassian.com/questions/171822/embedding-mp4-movie-screen-size
