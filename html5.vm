@@ -1,0 +1,51 @@
+## @param width:title=Width|type=string|required=false|desc=Video width
+## @param height:title=Height|type=string|required=false|desc=Video height
+## @param poster:title=Poster|type=string|required=false|desc=Set a placeholder image
+## @param src:title=Source|type=string|required=true|desc=Attached video filename
+## @param preload:title=Preload video|type=enum|enumValues=auto,metadata,none|default=metadata
+## @param loop:title=Loop|type=boolean|required=false|default=false
+## @param autoplay:title=Auto-play|type=boolean|required=false|default=false
+## @param controls:title=Show controls|type=boolean|required=false|default=true
+## @param mute=Mute:title=Play muted|type=boolean|required=false|default=false
+##
+## Tested on Google Chrome and Safari using mp4 files
+## Does not work for mp4s on Firefox as Mozilla does not support mp4 files - lame
+## Fail-back to Flash/Flow Player for old browsers -- Tested on Internet Explorer 8
+##
+## Usage: {html5video:src=myvideo.mp4|width=600|height=400}
+
+#set ($attachment = $content.getAttachmentNamed($paramsrc)) 
+
+<video
+	#if ($parampreload) preload=$parampreload #end
+	#if ($paramcontrols) controls #end
+	#if ($parammute) muted #end
+	#if ($paramloop) loop #end
+	#if ($paramautoplay) autoplay #end
+	#if ($paramwidth)  width="$paramwidth"   #end
+	#if ($paramheight) height="$paramheight" #end
+	#if ($paramposter) poster="$paramposter" #end ## Set a placeholder image for the video
+	>
+	<source type="video/$attachment.getFileExtension()" src="$attachment.getDownloadPath()" />
+	<object type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf"
+		#if ($paramwidth)  width="$paramwidth"   #else width="640"  #end
+		#if ($paramheight) height="$paramheight" #else height="360" #end
+		>
+		<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
+		<param name="allowFullScreen" value="true" />
+		<param name="wmode" value="transparent" />
+		<param name="flashVars" value="config={'playlist':[{'url':'$generalUtil.urlEncode("$action.getGlobalSettings().getBaseUrl()${attachment.getDownloadPath()}")','autoPlay':false}]}" />
+		<span title="No video playback capabilities, please download the video below"></span>
+	</object>
+</video>
+<p>
+	<strong>Download video:</strong> <a href="$attachment.getDownloadPath()">$attachment.getFileExtension() format</a>
+</p>
+
+<script>
+	## Remove the Firefox lameness and revert to the Flow Player embed
+	if (jQuery.browser.mozilla) jQuery('source[type="video/mp4"]').unwrap();
+</script>
+
+## Big props to: http://sandbox.thewikies.com/vfe-generator/ 
+## In response to: https://answers.atlassian.com/questions/171822/embedding-mp4-movie-screen-size
