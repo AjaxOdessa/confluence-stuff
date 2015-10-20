@@ -17,11 +17,11 @@
 ## @param controls:title=Show controls|type=boolean|required=false|default=true
 ## @param mute:title=Play muted|type=boolean|required=false|default=false
 ##
-## Tested on Google Chrome and Safari using mp4 files
-## Does not work for mp4s on Firefox as Mozilla does not support mp4 files - lame
+## Tested on Google Chrome, Safari, Firefox 40 using mp4 files
 ## Fail-back to Flash/Flow Player for old browsers -- Tested on Internet Explorer 8
 ##
-## Usage: {html5video:src=myvideo.mp4|width=600|height=400}
+## Usage: {html5video:src=myvideo.mp4|width=600|height=400|…}
+##	  The video must be an attachment to the page where macro is placed
 
 #set ($attachment = $content.getAttachmentNamed($paramsrc)) 
 <video
