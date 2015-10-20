@@ -11,11 +11,11 @@
 ## @param height:title=Height|type=string|required=false|desc=Video height
 ## @param poster:title=Poster|type=string|required=false|desc=Set a placeholder image
 ## @param src:title=Source|type=string|required=true|desc=Attached video filename
-## @param preload:title=Preload video|type=enum|enumValues=auto,metadata,none|default=metadata
+## @param preload:title=Preload video|type=enum|enumValues=auto,metadata,none|default=none
 ## @param loop:title=Loop|type=boolean|required=false|default=false
 ## @param autoplay:title=Auto-play|type=boolean|required=false|default=false
 ## @param controls:title=Show controls|type=boolean|required=false|default=true
-## @param mute=Mute:title=Play muted|type=boolean|required=false|default=false
+## @param mute:title=Play muted|type=boolean|required=false|default=false
 ##
 ## Tested on Google Chrome and Safari using mp4 files
 ## Does not work for mp4s on Firefox as Mozilla does not support mp4 files - lame
@@ -24,10 +24,9 @@
 ## Usage: {html5video:src=myvideo.mp4|width=600|height=400}
 
 #set ($attachment = $content.getAttachmentNamed($paramsrc)) 
-
 <video
 	#if ($parampreload) preload=$parampreload #end
-	#if ($paramcontrols) controls #end
+	#if (!$paramcontrols) controls #end
 	#if ($parammute) muted #end
 	#if ($paramloop) loop #end
 	#if ($paramautoplay) autoplay #end
